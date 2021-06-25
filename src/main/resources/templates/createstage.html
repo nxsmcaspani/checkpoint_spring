@@ -2,9 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="index.html :: head"></head>
   <body>
-    <header th:replace="index.html :: header"></header>
+  <header th:replace="index.html :: header"></header>
     <section>
+      <h1 class="text-center text-warning" th:text="${createstagedto.updateDestinationDto.country}"></h1>
+      <h2 class="text-center text-primary m-4">Add a Stage to my travel</h2>
+      <div class="container">
+        <form action="#"  method="POST" th:action="@{/addstage}" th:object="${createstagedto}">
+          <input name="destinationId" th:field="*{destinationId}" type="hidden">
+          <label for="city">City I staged in:</label><br /><br />
+          <input class="form-control" id="city" name="city" placeholder="City" required th:field="*{city}" type="text">
+          <br /><hr class="col-md-4 offset-md-4 border-2 border-top border-warning mt-3">
 
-
+          <div class="row">
+            <label for="stageDate">I staged there on:</label><br /><br />
+            <input id="stageDate" name="stageDate" th:field="*{stageDate}" placeholder="startDate"  type="date">
+          </div><br />
+          <div class="row">
+            <label for="summary">How it felt like:</label><br /><br />
+            <textarea id="summary" name="summary" th:field="*{summary}" placeholder="summary" class="form-control" rows="5"></textarea>
+          </div><br /><br />
+          <input type="submit" value="Create stage" class="btn btn-primary">
+        </form>
+      </div><br />
+    </section>
   </body>
 </html>
