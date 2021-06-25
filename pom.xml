@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fr.wildcodeschool</groupId>
-	<artifactId>checkpoint_spring</artifactId>
+	<artifactId>checkpointSpring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>checkpoint_spring</name>
-	<description>WCS Spring checkpoint</description>
+	<name>checkpointSpring</name>
+	<description>Spring checkpoin</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,6 +28,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>

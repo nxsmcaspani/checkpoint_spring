@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <title>TriCount</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/css/icons/bootstrap-icons.css">
+    <script src="/bootstrap/bootstrap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<header th:fragment="header">
+    <div class="header" >
+        <nav class="navbar navbar-dark bg-secondary">
+            <div class="text-center pos-f-t bootstrap">
+                <a class="text-decoration-none" href="/" ><h1 class="text-white">My travel diary</h1></a>
+            </div>
+        </nav>
+    </div>
+</header>
+    <section>
+        <h1 class="text-center text-primary m-4">My travels</h1>
+        <div class="col-md-12 text-center">
+            <a class="text-decoration-none" href="/createdest">
+                <button type="button" class="btn btn-labeled btn-rounded btn-success" title="Add a travel">
+                    <span class="btn-label"><i class="bi-plus-circle-fill"></i></span></button>
+            </a>
+        </div><br /><br />
+        <div class="container">
+            <th:block th:each="destination, state : ${destinations}">
+                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="deleteDestLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="deleteDestLabel">Confirm Delete</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>You are about to delete that travel, this action cannot be undone.</p>
+                                <p>Do you want to proceed?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-danger btn-ok">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2 class="text-center text-warning" th:text="${destination.country}"></h2>
+                        <p>From:<span th:text="${destination.startDate}"></span> | To:<span th:text="${destination.endDate}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
