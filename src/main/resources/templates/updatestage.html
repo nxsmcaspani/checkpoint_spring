@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index.html :: head"></head>
+<body>
+<header th:replace="index.html :: header"></header>
+<section>
+    <h2 class="text-center text-primary m-4">Edit this stage</h2>
+    <div class="container">
+        <form action="#"  method="POST" th:action="@{/updatestage}" th:object="${updatestagedto}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <label for="city">City I staged in:</label><br /><br />
+            <input class="form-control" id="city" name="city" placeholder="City" required th:field="*{city}" type="text">
+            <br /><hr class="col-md-4 offset-md-4 border-2 border-top border-warning mt-3">
+
+            <div class="row">
+                <label for="stageDate">I staged there on:</label><br /><br />
+                <input id="stageDate" name="stageDate" th:field="*{stageDate}" placeholder="startDate"  type="date">
+            </div><br />
+            <div class="row">
+                <label for="summary">How it felt like:</label><br /><br />
+                <textarea id="summary" name="summary" th:field="*{summary}" placeholder="summary" class="form-control" rows="5"></textarea>
+            </div><br /><br />
+            <input type="submit" value="Update stage" class="btn btn-primary">
+        </form>
+
+        <br /><hr class="col-md-4 offset-md-4 border-2 border-top border-warning mt-3"><br /><br />
+
+        <div class="col-md-12 text-center">
+<!--            <form action="#"  method="POST" th:action="@{/addresource}" th:object="${createresourcedto}">-->
+            <form action="#"  method="POST" th:action="@{/addresource}">
+                <input name="id" th:field="*{createresourcedto.idStage}" type="hidden">
+                <label for="resource">Add a resource on this stage:</label><br /><br />
+                <input class="form-control" id="resource" name="resource" placeholder="Resource" required th:field="*{createresourcedto.resource}" type="text"><br /><br />
+                <input type="submit" value="Add resource" class="btn btn-primary">
+            </form>
+        </div><br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Stage resource</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="resource : ${updatestagedto.updateResourceDtoList}">
+                    <td th:text="${resource.resource}"></td>
+                    <td>
+                        <a class="text-decoration-none" th:href="@{/resource/{id}(id=${resource.id})}">
+                            <button type="button" class="btn btn-labeled btn-primary">
+                                <span class="btn-label"><i class="bi-binoculars-fill"></i></span></button>
+                        </a>
+                        <a class="text-decoration-none" th:href="@{/deleteresource/{id}(id=${resource.id})}">
+                            <button type="button" class="btn btn-labeled btn-danger">
+                                <span class="btn-label"><i class="bi-trash"></i></span></button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div><br />
+</section>
+</body>
+</html>

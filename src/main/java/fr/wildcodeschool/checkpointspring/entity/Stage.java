@@ -18,7 +18,7 @@ public class Stage {
     @JoinColumn(name="destination_id", columnDefinition="int")
     private Destination destination;
 
-    @OneToMany (mappedBy="stage")
+    @OneToMany (mappedBy="stage", cascade = CascadeType.REMOVE)
     @Column(columnDefinition="int")
     private List<Resource> resourceList;
 

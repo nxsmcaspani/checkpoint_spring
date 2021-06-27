@@ -5,7 +5,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/bootstrap/css/icons/bootstrap-icons.css">
-    <script src="/bootstrap/bootstrap.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -15,6 +15,7 @@
             <div class="text-center pos-f-t bootstrap">
                 <a class="text-decoration-none" href="/" ><h1 class="text-white">My travel diary</h1></a>
             </div>
+            <div class="float-right"><a href="/login" class="text-decoration-none text-white">Login</a> <span class="text-white">/</span> <a href="/logout" class="text-decoration-none text-white">Logout</a>  </div>
         </nav>
     </div>
 </header>
@@ -27,29 +28,57 @@
             </a>
         </div><br /><br />
         <div class="container">
+            <div class="row align-items-center">
             <th:block th:each="destination, state : ${destinations}">
-                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="deleteDestLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="deleteDestLabel">Confirm Delete</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>You are about to delete that travel, this action cannot be undone.</p>
-                                <p>Do you want to proceed?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-danger btn-ok">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h2 class="text-center text-warning" th:text="${destination.country}"></h2>
-                        <p>From:<span th:text="${destination.startDate}"></span> | To:<span th:text="${destination.endDate}"></span></p>
+                        <h2 class="text-center text-warning " th:text="${destination.country}"></h2>
+                        <a class="text-decoration-none" th:href="@{/updatedest/{id}(id=${destination.id})}">
+                            <button type="button" class="btn btn-labeled btn-success">
+                                <span class="btn-label"><i class="bi-pencil"></i></span></button>
+                        </a>
+                        <a class="text-decoration-none" th:href="@{/dest/{id}(id=${destination.id})}">
+                            <button type="button" class="btn btn-labeled btn-primary">
+                                <span class="btn-label"><i class="bi-binoculars-fill"></i></span></button>
+                        </a>
+                        <a class="text-decoration-none" th:href="@{/deletedest/{id}(id=${destination.id})}">
+                            <button type="button" class="btn btn-labeled btn-danger">
+                                <span class="btn-label"><i class="bi-trash"></i></span></button>
+                        </a>
+                        <br /><br /><p><b>From:</b> <span th:text="${destination.startDate}"></span>    <b>To:</b> <span th:text="${destination.endDate}"></span></p>
+                    </div>
+                    <div class="col">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>City I Staged In</th>
+                                <th>My experience</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="stage : ${destination.updateStageDtoList}">
+                                <td th:text="${stage.city}"></td>
+                                <td th:text="${stage.summary}"></td>
+                                <td>
+                                    <a class="text-decoration-none" th:href="@{/stage/{id}(id=${stage.id})}">
+                                        <button type="button" class="btn btn-labeled btn-primary">
+                                            <span class="btn-label"><i class="bi-binoculars-fill"></i></span></button>
+                                    </a>
+                                    <a class="text-decoration-none" th:href="@{/deletestage/{id}(id=${stage.id})}">
+                                        <button type="button" class="btn btn-labeled btn-danger">
+                                            <span class="btn-label"><i class="bi-trash"></i></span></button>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="align-items-end">
+                            <a class="text-decoration-none" th:href="@{/createstage/{id}(id=${destination.id})}">
+                                <button type="button" class="btn btn-labeled btn-rounded btn-success" title="Add a stage to my travel">
+                                    <span class="btn-label"><i class="bi-plus-circle-fill"></i></span></button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
