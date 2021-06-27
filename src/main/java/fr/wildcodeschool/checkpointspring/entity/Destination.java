@@ -14,7 +14,7 @@ public class Destination {
     private LocalDate startDate;
     private LocalDate endDate ;
 
-    @OneToMany (mappedBy="destination")
+    @OneToMany (mappedBy="destination", cascade = CascadeType.REMOVE)
     @Column(columnDefinition="int")
     private List<Stage> stageList;
 

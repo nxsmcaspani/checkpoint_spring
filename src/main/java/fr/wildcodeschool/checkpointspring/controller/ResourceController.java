@@ -17,26 +17,28 @@ public class ResourceController {
 
     @GetMapping("/resource/{id}")
     public String getResourceDetails(Model model, @PathVariable(name = "id") Integer idResource){
-        return "stage";
-    }
-
-    @GetMapping("/createresource/{id}")
-    public String getResourceCreationForm(Model model, @PathVariable(name = "id") Integer idStage){
-        return "createresource";
+        model.addAttribute("updateresourcedto", resourceService.convertFromEntityToDtoForUpdate(idResource));
+        return "updateresource";
     }
 
     @PostMapping("/addresource")
-    public String addResource(Model model, CreateResourceDto createResourceDto){
-        return "redirect:/";
+    public String addResource(CreateResourceDto createResourceDto){
+        resourceService.addResource(createResourceDto);
+        return "redirect:/stage/"+createResourceDto.getIdStage();
     }
 
     @PostMapping("/updateresource")
-    public String updateResource(Model model, UpdateResourceDto updateResourceDto){
-        return "redirect:/stage";
+    public String updateResource(UpdateResourceDto updateResourceDto){
+        resourceService.updateResource(updateResourceDto);
+        return "redirect:/stage/"+updateResourceDto.getIdStage();
     }
 
     @GetMapping("/deleteresource/{id}")
-    public String deleteResource(Model model, Integer idResource){
-        return "redirect:/";
+    public String deleteResource(@PathVariable(name = "id") Integer idResource){
+        if(idResource != null) {
+            Integer idStage = resourceService.getStageIdFromResourceId(idResource);
+            resourceService.deleteResource(idResource);
+            return "forward:/stage/" + idStage;
+        } else throw new RuntimeException();
     }
 }

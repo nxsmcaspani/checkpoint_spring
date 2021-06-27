@@ -34,6 +34,13 @@ public class StageService {
         return stageRepository.save(convertFromDtoToEntityForUpdate(updateStageDto));
     }
 
+    public Stage getById(int idStage) {
+        Optional<Stage> optionalStage = stageRepository.findById(idStage);
+        if(optionalStage.isPresent()){
+            Stage stage = optionalStage.get();
+            return stage;
+        } else throw new RuntimeException();
+    }
 
     public void deleteStage(Integer idStage){
         Optional<Stage> optionalStage = stageRepository.findById(idStage);
@@ -63,8 +70,10 @@ public class StageService {
             updateStageDto.setSummary(stage.getSummary());
             updateStageDto.setDestinationId(stage.getDestination().getId());
             List<UpdateResourceDto> updateResourceDtoList = new ArrayList<>();
-            for (Resource resource : stage.getResourceList()) {
-                updateResourceDtoList.add(resourceService.convertFromEntityToDtoForUpdate(resource.getId()));
+            if(stage.getResourceList() != null){
+                for (Resource resource : stage.getResourceList()) {
+                    updateResourceDtoList.add(resourceService.convertFromEntityToDtoForUpdate(resource.getId()));
+                }
             }
             updateStageDto.setUpdateResourceDtoList(updateResourceDtoList);
             return updateStageDto;

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index.html :: head"></head>
+<body>
+<header th:replace="index.html :: header"></header>
+<section>
+  <h2 class="text-center text-primary m-4">Edit that resource</h2>
+  <div class="container">
+    <div class="col-md-12 text-center">
+        <form action="#"  method="POST" th:action="@{/updateresource}" th:object="${updateresourcedto}">
+        <input name="id" th:field="*{id}" type="hidden">
+        <input name="id" th:field="*{idStage}" type="hidden">
+        <label for="resource">Modify the resource:</label><br /><br />
+        <input class="form-control" id="resource" name="resource" placeholder="Resource" required th:field="*{resource}" type="text"><br /><br />
+        <input type="submit" value="Update resource" class="btn btn-primary">
+      </form>
+    </div><br /><br />
+
+  </div><br />
+</section>
+</body>
+</html>

@@ -50,8 +50,15 @@ public class DestinationController {
         return "redirect:/";
     }
 
+    @GetMapping("/updatedest/{id}")
+    public String updateDestination(Model model, @PathVariable(name = "id") Integer idDest){
+        UpdateDestinationDto updateDestinationDto = destinationService.convertFromEntityToDtoForRead(idDest);
+        model.addAttribute("destination", updateDestinationDto);
+        return "updatedestination";
+    }
+
     @PostMapping("/updatedest")
-    public String updateDestination(Model model, UpdateDestinationDto updateDestinationDto){
+    public String updateDestination(UpdateDestinationDto updateDestinationDto){
         destinationService.updateDestination(updateDestinationDto);
         return "redirect:/";
     }

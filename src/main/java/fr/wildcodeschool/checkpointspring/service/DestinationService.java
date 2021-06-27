@@ -65,13 +65,15 @@ public class DestinationService {
             destination.setCountry(updateDestinationDto.getCountry());
             destination.setStartDate(updateDestinationDto.getStartDate());
             destination.setEndDate(updateDestinationDto.getEndDate());
-            List<Stage> stageList = new ArrayList<>();
-            for(UpdateStageDto updateStageDto : updateDestinationDto.getUpdateStageDtoList()){
-                Optional<Stage> optionalStage = stageRepository.findById(updateStageDto.getId());
-                Stage stage = optionalStage.orElseThrow(RuntimeException::new);
-                stageList.add(stage);
+            if(updateDestinationDto.getUpdateStageDtoList() != null) {
+                List<Stage> stageList = new ArrayList<>();
+                for (UpdateStageDto updateStageDto : updateDestinationDto.getUpdateStageDtoList()) {
+                    Optional<Stage> optionalStage = stageRepository.findById(updateStageDto.getId());
+                    Stage stage = optionalStage.orElseThrow(RuntimeException::new);
+                    stageList.add(stage);
+                }
+                destination.setStageList(stageList);
             }
-            destination.setStageList(stageList);
             return destination;
         } else throw new RuntimeException();
     }
